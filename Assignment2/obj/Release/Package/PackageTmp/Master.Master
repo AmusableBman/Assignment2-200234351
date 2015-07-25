@@ -1,0 +1,53 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.master.cs" Inherits="Assignment2.Master" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>BudgetBro</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="site.css" />
+
+</head>
+<body>
+    <nav class="nav navbar-default">
+        <a href = "default.aspx" class =" nav navbar-brand">BudgetBro</a>
+        <ul class="nav navbar-nav">
+            <asp:PlaceHolder ID="plhPublic" runat="server">
+                <li class="nav navbar-right"><a href="/register.aspx">Register</a></li>
+                <li class="nav navbar-right"><a href="/login.aspx">Log In</a></li>
+            </asp:PlaceHolder>
+            <asp:PlaceHolder ID="plhPrivate" runat="server">
+                <li class="nav navbar-left"><a href="/budget/index.aspx">Budget Tracker</a></li>
+                <li class="nav navbar-right"><a href="/account/index.aspx"><asp:Label ID="lblAccount" runat="server"></asp:Label></a></li>
+                <li class="nav navbar-right"><a href="/logout.aspx">Log Out</a></li>
+            </asp:PlaceHolder>
+        </ul>
+    </nav>
+    <div class="well" id="containWebsite">
+        <form id="form1" runat="server">
+        <div class="container">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+            </asp:ContentPlaceHolder>
+        </div>
+        </form>
+    </div>
+    
+    <footer class="alert alert-info">
+        &copy 2015 - BudgetBro Inc.
+    </footer>
+
+    <!--jquery CDN -->
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+</html>

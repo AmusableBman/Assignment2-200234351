@@ -1,0 +1,14 @@
+﻿body, html {
+    height: 100%;
+    background: ##9fff95;
+    background-image: url("images/bg1.png"), url("images/bg2.png");
+    background-repeat: repeat-x, repeat;
+}
+#containWebsite {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.pullitright{
+    text-align: right;
+}
