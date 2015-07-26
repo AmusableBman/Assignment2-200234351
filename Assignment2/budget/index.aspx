@@ -15,11 +15,11 @@
     </div>
 
     <asp:GridView ID="grdExpenses" runat="server" AutoGenerateColumns="false" CssClass="table table-striped"
-        DataKeyNames="ID" OnRowDeleting="grdExpenses_RowDeleting" OnRowDataBound="grdExpenses_RowDataBound">
+        DataKeyNames="ID" OnRowDeleting="grdExpenses_RowDeleting" AllowSorting="true" OnRowDataBound="grdExpenses_RowDataBound" OnSorting="grdExpenses_Sorting">
         <Columns>
-            <asp:BoundField Datafield="Name" HeaderText="Name"/>
+            <asp:BoundField Datafield="Name" HeaderText="Name" SortExpression="Name"/>
             <asp:BoundField Datafield="Description" HeaderText="Description"/>
-            <asp:BoundField Datafield="Cost" HeaderText="Cost" DataFormatString="{0:c}"/>
+            <asp:BoundField Datafield="Cost" HeaderText="Cost" DataFormatString="{0:c}" SortExpression="Cost"/>
             <asp:HyperLinkField HeaderText="Edit" Text="Edit" NavigateUrl="~/expense.aspx" 
                 DataNavigateUrlFields="ID" DataNavigateUrlFormatString="expense.aspx?ID={0}" />
             <asp:CommandField DeleteText="Delete" HeaderText="Delete" ShowDeleteButton="true" />

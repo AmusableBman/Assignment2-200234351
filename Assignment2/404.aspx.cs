@@ -11,6 +11,7 @@ namespace Assignment2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //set status code for 404 error
             Response.StatusCode = 404;
         }
     }

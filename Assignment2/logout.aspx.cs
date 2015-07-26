@@ -14,8 +14,10 @@ namespace Assignment2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //logout user
             var AuthenticationManager = HttpContext.Current.GetOwinContext().Authentication;
             AuthenticationManager.SignOut();
+            //redirect to login screen
             Response.Redirect("login.aspx");
         }
     }

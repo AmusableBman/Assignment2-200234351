@@ -13,6 +13,7 @@ namespace Assignment2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //show/hide different elements of the nav bar as necessary
             if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 plhPrivate.Visible = true;

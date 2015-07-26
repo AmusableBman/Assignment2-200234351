@@ -32,17 +32,20 @@ namespace Assignment2
 
         protected void Application_Error(object sender, EventArgs e)
         {
+            //error handling
             var serverError = Server.GetLastError() as HttpException;
 
             if (null != serverError)
             {
                 int errorCode = serverError.GetHttpCode();
 
+                //if 404, redirect to 404 page
                 if (404 == errorCode)
                 {
                     Server.ClearError();
                     Server.Transfer("/404.aspx");
                 }
+                //if anything else, redirect to generic error page
                 else
                 {
                     Server.ClearError();

@@ -19,20 +19,25 @@ namespace Assignment2
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            //Find user in database
             var userStore = new UserStore<IdentityUser>();
             var userManager = new UserManager<IdentityUser>(userStore);
             var user = userManager.Find(txtUsername.Text, txtPassword.Text);
 
+            //if found...
             if (user != null)
             {
+                //log in user
                 var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
                 var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
 
+                //redirect user to budget tracker
                 authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
-                Response.Redirect("account/index.aspx");
+                Response.Redirect("budget/index.aspx");
             }
             else
             {
+                //display error
                 lblStatus.Text = "Invalid username or password.";
             }
         }

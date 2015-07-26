@@ -22,17 +22,17 @@ namespace Assignment2
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            // Default UserStore constructor uses the default connection string named: DefaultConnectionEF
+            // Create variables to store user information, awaiting creation
             var userStore = new UserStore<IdentityUser>();
             var manager = new UserManager<IdentityUser>(userStore);
 
+            //creating new user
             var user = new IdentityUser() { UserName = txtUsername.Text };
             IdentityResult result = manager.Create(user, txtPassword.Text);
 
             if (result.Succeeded)
             {
-                //lblStatus.Text = string.Format("User {0} was created successfully!", user.UserName);
-                //lblStatus.CssClass = "label label-success";
+                //create new user
                 var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
                 var userIdentity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                 authenticationManager.SignIn(new AuthenticationProperties() { }, userIdentity);
@@ -44,19 +44,21 @@ namespace Assignment2
                     AspNetUser info = (from u in conn.AspNetUsers
                                        where u.UserName == txtUsername.Text
                                        select u).FirstOrDefault();
-
+                    //default values for user
                     newUser.UserID = info.Id;
                     newUser.Name = "UPDATE ACCOUNT INFO";
                     newUser.Budget = Convert.ToDecimal(0.00);
 
+                    //add new user to database
                     conn.Users.Add(newUser);
                     conn.SaveChanges();
                 }
 
-                Response.Redirect("default.aspx");
+                Response.Redirect("/budget/index.aspx");
             }
             else
             {
+                //display error in creating user
                 lblStatus.Text = result.Errors.FirstOrDefault();
                 lblStatus.CssClass = "label label-danger";
             }

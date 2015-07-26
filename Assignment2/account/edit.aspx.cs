@@ -16,6 +16,7 @@ namespace Assignment2.account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //get account information
             if(!IsPostBack)
             {
                 getAccountInfo();
@@ -24,36 +25,43 @@ namespace Assignment2.account
 
         protected void getAccountInfo()
         {
-            var AccountID = User.Identity.GetUserId();
 
             using (FinalEntities conn = new FinalEntities())
             {
+                //get current user id
                 var userId = User.Identity.GetUserId();
 
+                //pull information from database
                 var account = (from acc in conn.Users
                                where acc.UserID == userId
                                select acc).FirstOrDefault();
-
+                //populate editing form
                 txtAccountName.Text = account.Name;
                 txtBudget.Text = Convert.ToString(account.Budget);
             }
         }
 
+        //save information
         protected void btnSave_Click(object sender, EventArgs e)
         {
             using (FinalEntities conn = new FinalEntities())
             {
+                //get current user id
                 var userId = User.Identity.GetUserId();
 
+                //pull information from database
                 var account = (from acc in conn.Users
                                where acc.UserID == userId
                                select acc).FirstOrDefault();
 
+                //set new information
                 account.Name = txtAccountName.Text;
                 account.Budget = Convert.ToDecimal(txtBudget.Text);
 
+                //save changes
                 conn.SaveChanges();
 
+                //redirect to account information
                 Response.Redirect("index.aspx");
             }
         }

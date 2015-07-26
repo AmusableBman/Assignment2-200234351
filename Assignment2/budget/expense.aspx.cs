@@ -18,6 +18,7 @@ namespace Assignment2.budget
         {
             if (!IsPostBack)
             {
+                //if edit was clicked, populate form
                 if (!String.IsNullOrEmpty(Request.QueryString["ID"]))
                 {
                     getExpense();
@@ -27,14 +28,17 @@ namespace Assignment2.budget
 
         protected void getExpense()
         {
+            //convert expense ID from URL
             Int32 ExpenseID = Convert.ToInt32(Request.QueryString["ID"]);
 
             using (FinalEntities conn = new FinalEntities())
             {
+                //pull expense information
                 var exp = (from e in conn.Expenses
                            where e.Id == ExpenseID
                            select e).FirstOrDefault();
 
+                //populate expense form
                 txtName.Text = exp.Name;
                 txtDescription.Text = exp.Description;
                 txtCost.Text = Convert.ToString(exp.Cost);
@@ -46,13 +50,16 @@ namespace Assignment2.budget
         {
             using (FinalEntities conn = new FinalEntities())
             {
+                //prepare to store new information
                 var ex = new Expens();
                 var userId = User.Identity.GetUserId();
 
+                //pull user info
                 var user = (from u in conn.Users
                             where u.UserID == userId
                             select u).FirstOrDefault();
 
+                //pull expense information if needed
                 if (!String.IsNullOrEmpty(Request.QueryString["ID"]))
                 {
 
@@ -62,16 +69,19 @@ namespace Assignment2.budget
                           select expen).FirstOrDefault();
                 }
 
+                //set new expense information
                 ex.Name = txtName.Text;
                 ex.Description = txtDescription.Text;
                 ex.Cost = Convert.ToDecimal(txtCost.Text);
                 ex.UserID = user.Id;
 
+                //if new expense, add it to database
                 if (String.IsNullOrEmpty(Request.QueryString["ID"]))
                 {
                     conn.Expenses.Add(ex);
                 }
 
+                //save changes, and redirect to expense table
                 conn.SaveChanges();
                 Response.Redirect("index.aspx");
             }
